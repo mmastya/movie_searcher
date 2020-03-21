@@ -1,0 +1,13 @@
+.movies-list {
+    list-style: none;
+}
+
+.movies-list__item {
+    padding: 10px;
+    border: 1px solid black;
+    border-bottom: 0;
+
+    &:last-child {
+        border-bottom: 1px solid black;
+    }
+}
