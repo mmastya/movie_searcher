@@ -28,7 +28,9 @@ export const Favorites = observer(() => {
           </Link>
         </li>
       </ul>
-      <Films/>>
+      <div className="favorites-block__movies-list">
+        <Films/>
+      </div>
     </div>
   );
 });

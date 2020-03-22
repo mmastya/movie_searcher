@@ -68,7 +68,9 @@ export const Movies = observer(() => {
           })}
         </Select>
       </form>
-      <Films />
+      <div className="movies-block__movies-list">
+        <Films />
+      </div>
     </div>
   );
 });

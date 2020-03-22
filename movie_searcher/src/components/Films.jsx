@@ -2,9 +2,7 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import "../blocks/button.scss";
 import "../blocks/movies-list.scss";
-import "../blocks/toggle-list.scss";
 import { store } from "../stores/Store";
-import "./Movies.scss";
 
 export const Films = observer(() => {
   const { films, limit, offset, favorites } = store;
@@ -17,7 +15,7 @@ export const Films = observer(() => {
 
   return (
     <>
-      <ul className="movies-block__movies-list movies-list">
+      <ul className="movies-list">
         {films
           .map(film => {
             return (
@@ -36,7 +34,7 @@ export const Films = observer(() => {
           .slice(start, end)}
       </ul>
       {films.length > limit ? (
-        <button className="movies-block__button button" onClick={showMoreFilms}>
+        <button className="button" onClick={showMoreFilms}>
           Показать еще
         </button>
       ) : null}
