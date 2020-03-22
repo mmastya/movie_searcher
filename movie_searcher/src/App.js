@@ -10,8 +10,8 @@ function App() {
   console.log(tags);
   return (
     <Router>
-      <Route path="/" exact component={Movies} />
-      <Route path="/favorites" component={Favorites} />
+      <Route path={process.env.PUBLIC_URL} exact component={Movies} />
+      <Route path={`${process.env.PUBLIC_URL}favorites`} component={Favorites} />
     </Router>
   );
 }

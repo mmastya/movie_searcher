@@ -33,12 +33,12 @@ export const Movies = observer(() => {
       Страница Фильмы
       <ul className="movies-block__toggle-list toggle-list">
         <li className="toggle-list__item toggle-list__item--active">
-          <Link className="toggle-list__item-link" to="/">
+          <Link className="toggle-list__item-link" to={process.env.PUBLIC_URL}>
             Фильмы
           </Link>
         </li>
         <li className="toggle-list__item">
-          <Link className="toggle-list__item-link" to="/favorites">
+          <Link className="toggle-list__item-link" to={`${process.env.PUBLIC_URL}favorites`}>
             Избранное
           </Link>
         </li>
