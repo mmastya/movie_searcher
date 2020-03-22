@@ -12,6 +12,10 @@
     &:last-child {
         margin-right: 0;
     }
+
+    &--active {
+        background-color: lightgrey;
+    }
 }
 
 .toggle-list__item-link {

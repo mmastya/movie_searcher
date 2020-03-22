@@ -1,62 +1,74 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Store } from "../../stores/Store";
+import { store } from "../../stores/Store";
 import { observer } from "mobx-react-lite";
+import { Films } from "../../components/Films";
 import "../movies/Movies.scss";
 import "../../blocks/toggle-list.scss";
 import "../../blocks/movies-list.scss";
+import "../../blocks/button.scss";
 
-export const Movies = observer (() => {
-    const { moviesList, search, allTags, selectedTags} = Store;
+import { Select } from "antd";
 
-    useEffect(() => {
-        Store.init();
-    }, []);
+const { Option } = Select;
 
-    const handleChange = (event) => {
-        Store.setSearch(event.target.value)
-    };
+export const Movies = observer(() => {
+  const { search, allTags, selectedTags } = store;
 
-    const selectChange = (event) => {
-        Store.setTags(event.target.value)
-    }
-    console.log(allTags);
+  useEffect(() => {
+    store.init();
+    store.showFavorites(false);
+  }, []);
 
-    return (
-        <div className="movies-block">
-            <ul className="movies-block__toggle-list toggle-list">
-                <li className="toggle-list__item">
-                    <Link className="toggle-list__item-link" to="/">Фильмы</Link>
-                </li>
-                <li className="toggle-list__item">
-                    <Link className="toggle-list__item-link" to="/bookmarkers">Избранное</Link>
-                </li>
-            </ul>
-            <form className="movies-block__form">
-                <input
-                    className="movies-block__form-input"
-                    type="text"
-                    placeholder="Поиск"
-                    value={search}
-                    onChange={handleChange}>
-                </input>
-                <select className="movies-block__form-select" value={selectedTags} onChange={selectChange} placeholder="Please select">
-                    {allTags.map((tag) => {
-                        return (
-                            <option value={tag} key={tag}>
-                                {tag}
-                            </option>
-                        )
-                    })}
-                </select>
-            </form>
-            <ul className="movies-block__movies-list movies-list">
-                {moviesList.map(({index,title}) => {
-                    return(
-                    <li className="movies-list__item" key={index}>{title}</li>
-                    )
-                })}
-            </ul>
-        </div>
-    )
+  const filterBySearch = event => {
+    store.setSearch(event.target.value);
+  };
+
+  const filterByTags = tags => {
+    store.setTags(tags);
+  };
+
+  return (
+    <div className="movies-block">
+      Страница Фильмы
+      <ul className="movies-block__toggle-list toggle-list">
+        <li className="toggle-list__item toggle-list__item--active">
+          <Link className="toggle-list__item-link" to="/">
+            Фильмы
+          </Link>
+        </li>
+        <li className="toggle-list__item">
+          <Link className="toggle-list__item-link" to="/favorites">
+            Избранное
+          </Link>
+        </li>
+      </ul>
+      <form className="movies-block__form">
+        <input
+          className="movies-block__form-input"
+          type="text"
+          placeholder="Поиск"
+          value={search}
+          onChange={filterBySearch}
+        ></input>
+        <Select
+          className="movies-block__form-select"
+          placeholder="Please select"
+          mode="multiple"
+          style={{ width: "100%" }}
+          value={Array.from(selectedTags)}
+          onChange={filterByTags}
+        >
+          {allTags.map(tag => {
+            return (
+              <Option value={tag} key={tag}>
+                {tag}
+              </Option>
+            );
+          })}
+        </Select>
+      </form>
+      <Films />
+    </div>
+  );
 });
